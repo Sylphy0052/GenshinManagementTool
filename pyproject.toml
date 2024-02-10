@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "genshinmanagementtool"
+version = "0.1.0"
+description = ""
+authors = ["Sylphy0052 <yark0531@yahoo.co.jp>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "3.11.7"
+gradio = "^4.17.0"
+sqlalchemy = "^2.0.25"
+pandas = "^2.2.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
