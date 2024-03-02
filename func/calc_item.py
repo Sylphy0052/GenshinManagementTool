@@ -1,3 +1,5 @@
+import logging
+
 from pandas import DataFrame
 
 from cruds.item import update_num
@@ -7,12 +9,15 @@ from func.weapon import get_player_weapon_df
 from settings import (
     ELEMENT_STONE,
     ITEM_RENAME_VALUES,
+    LOGGER_NAME,
     NEED_LV_ITEM,
     NEED_SKILL_ITEM,
     WEAPON3_LV_ITEM,
     WEAPON4_LV_ITEM,
     WEAPON5_LV_ITEM,
 )
+
+logger = logging.getLogger(LOGGER_NAME)
 
 
 def _calc_lv_item(chara_df: DataFrame, weapon_df: DataFrame, item_df: DataFrame) -> DataFrame:
@@ -28,10 +33,11 @@ def _calc_lv_item(chara_df: DataFrame, weapon_df: DataFrame, item_df: DataFrame)
                             item = ELEMENT_STONE[chara["element"]]
                         else:
                             item = chara[item_type]
-                        if item_df[item_df["base"] == item].shape[0] == 0:
-                            print(chara)
-                            print(item)
-                        item_s = item_df[(item_df["base"] == item) & (item_df["rare"] == rare)].iloc[0]
+                        try:
+                            item_s = item_df[(item_df["base"] == item) & (item_df["rare"] == rare)].iloc[0]
+                        except Exception as e:
+                            logger.error(e)
+                            logger.error(f"item: {item}, rare: {rare}")
                         if item_s["id"] in lv_values:
                             lv_values[item_s["id"]][3] += num  # type: ignore
                         else:

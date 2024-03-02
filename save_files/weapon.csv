@@ -47,3 +47,4 @@ id,name,rare,weapon_type,level,t_level,refine,weapon,enemy1,enemy2,is_get,is_cal
 46,龍殺しの英傑譚,3,法器,40,1,5,凛風奔狼,占いの絵巻,地脈の旧枝,True,False
 47,金珀試作,4,法器,1,90,2,霧海雲間,牢固な矢先,霧虚ろの花粉,True,True
 48,匣中日月,4,法器,1,90,1,孤雲寒林,トリックフラワーの蜜,猟兵の刀,True,True
+49,有楽御簾切,5,片手剣,1,1,1,遠海夷地,古びた鍔,混沌の機関,False,True
