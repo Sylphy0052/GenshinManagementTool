@@ -6,10 +6,9 @@ authors = ["Sylphy0052 <yark0531@yahoo.co.jp>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "3.11.7"
-gradio = "^4.17.0"
-sqlalchemy = "^2.0.25"
-pandas = "^2.2.0"
+python = "^3.10"
+gradio = "^4.19.2"
+sqlalchemy = "^2.0.28"
 
 
 [build-system]

@@ -51,8 +51,7 @@ def lvup_skill1(chara_name: str) -> None:
         item_s = item_df[(item_df["base"] == item) & (item_df["rare"] == rare)].iloc[0]
         to_num = int(item_s["num"]) - num
         update_num([[item_s["id"], to_num]])
-    lv = to_lv + 1
-    update_chara_skill1([[chara["id"], lv]])
+    update_chara_skill1([[chara["id"], to_lv]])
 
 
 def lvup_skill2(chara_name: str) -> None:
@@ -69,8 +68,7 @@ def lvup_skill2(chara_name: str) -> None:
         item_s = item_df[(item_df["base"] == item) & (item_df["rare"] == rare)].iloc[0]
         to_num = int(item_s["num"]) - num
         update_num([[item_s["id"], to_num]])
-    lv = to_lv + 1
-    update_chara_skill2([[chara["id"], lv]])
+    update_chara_skill2([[chara["id"], to_lv]])
 
 
 def lvup_skill3(chara_name: str) -> None:
@@ -87,8 +85,7 @@ def lvup_skill3(chara_name: str) -> None:
         item_s = item_df[(item_df["base"] == item) & (item_df["rare"] == rare)].iloc[0]
         to_num = int(item_s["num"]) - num
         update_num([[item_s["id"], to_num]])
-    lv = to_lv + 1
-    update_chara_skill3([[chara["id"], lv]])
+    update_chara_skill3([[chara["id"], to_lv]])
 
 
 def lvup_weapon_lv(weapon_name: str) -> None:

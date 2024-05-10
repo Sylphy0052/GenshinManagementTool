@@ -14,6 +14,8 @@ from settings import FILE_DIR
 
 def download_chara_csv() -> str:
     df = get_chara_df()
+    if len(df) == 0:
+        return ""
     df.to_csv(os.path.join(FILE_DIR, "chara.csv"), index=False)
     return os.path.join(FILE_DIR, "chara.csv")
 

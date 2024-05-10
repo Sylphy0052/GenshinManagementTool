@@ -53,4 +53,5 @@ def reset_db() -> None:
 
 
 if __name__ == "__main__":
+    create_db()
     reset_db()

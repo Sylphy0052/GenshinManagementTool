@@ -14,6 +14,8 @@ def get_item_df() -> DataFrame:
     item_list = read_item()
     columns = [item for item in Item.__table__.columns.keys() if item not in ["created_at", "updated_at"]]
     value_list = np.array([item.to_list() for item in item_list])
+    if len(value_list) == 0:
+        return DataFrame(columns=columns)
     item_df = DataFrame(value_list, columns=columns)
     return item_df
 

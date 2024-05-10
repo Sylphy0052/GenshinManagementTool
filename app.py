@@ -1,9 +1,10 @@
 import logging
 import os
+import webbrowser
 
 import gradio as gr
 
-from cruds.migrate import create_db
+from cruds.migrate import create_db, reset_db
 from func.calc_item import (
     change_calc_item_df,
     change_total_item_df,
@@ -73,6 +74,7 @@ logger.addHandler(rh)
 
 # DB作成
 create_db()
+reset_db()
 
 app = gr.Blocks(title="原神素材計算機")
 with app:
@@ -1233,96 +1235,6 @@ with app:
 
 
 if __name__ == "__main__":
+    webbrowser.open("http://localhost:8000?__theme=dark", new=2, autoraise=True)
     app.queue()
     app.launch(server_name="0.0.0.0", server_port=8000, debug=LOG_LEVEL == logging.DEBUG, allowed_paths=[FILE_DIR])
-
-    # app.load(lambda x: x).then(
-    #     load_chara_list_df,
-    #     inputs=[chara_list_rare_filter, chara_list_element_filter, chara_list_get_filter, chara_list_calc_filter],
-    #     outputs=chara_list_df,
-    # ).then(
-    #     load_player_chara_df,
-    #     inputs=[
-    #         player_chara_rare_filter,
-    #         player_chara_element_filter,
-    #         player_chara_get_filter,
-    #         player_chara_calc_filter,
-    #     ],
-    #     outputs=player_chara_df,
-    # ).then(
-    #     load_calc_target_chara_df,
-    #     inputs=[
-    #         calc_target_chara_rare_filter,
-    #         calc_target_chara_element_filter,
-    #         calc_target_chara_get_filter,
-    #         calc_target_chara_calc_filter,
-    #     ],
-    #     outputs=calc_target_chara_df,
-    # ).then(
-    #     lambda: gr.update(choices=get_get_chara_list()), outputs=chara_lvup_chara
-    # ).then(
-    #     change_lvup_value, inputs=chara_lvup_chara, outputs=chara_lvup_lv_button
-    # ).then(
-    #     change_skill1_value, inputs=chara_lvup_chara, outputs=chara_lvup_skill1_button
-    # ).then(
-    #     change_skill2_value, inputs=chara_lvup_chara, outputs=chara_lvup_skill2_button
-    # ).then(
-    #     change_skill3_value, inputs=chara_lvup_chara, outputs=chara_lvup_skill3_button
-    # ).then(
-    #     load_lvup_lv_df, inputs=chara_lvup_chara, outputs=lvup_chara_lv_df
-    # ).then(
-    #     load_lvup_skill1_df, inputs=chara_lvup_chara, outputs=lvup_chara_skill1_df
-    # ).then(
-    #     load_lvup_skill2_df, inputs=chara_lvup_chara, outputs=lvup_chara_skill2_df
-    # ).then(
-    #     load_lvup_skill3_df, inputs=chara_lvup_chara, outputs=lvup_chara_skill3_df
-    # ).then(
-    #     load_weapon_list_df,
-    #     inputs=[weapon_list_rare_filter, weapon_list_type_filter],
-    #     outputs=weapon_list_df,
-    # ).then(
-    #     load_player_weapon_df,
-    #     inputs=[
-    #         player_weapon_rare_filter,
-    #         player_weapon_type_filter,
-    #         player_weapon_get_filter,
-    #         player_weapon_calc_filter,
-    #     ],
-    #     outputs=player_weapon_df,
-    # ).then(
-    #     lambda x, y: gr.update(choices=get_weapon_list(x, y)),
-    #     inputs=[add_weapon_rare_filter, add_weapon_type_filter],
-    #     outputs=add_weapon_name,
-    # ).then(
-    #     lambda x, y: gr.update(choices=get_weapon_detail_list(x, y)),
-    #     inputs=[delete_weapon_rare_filter, delete_weapon_type_filter],
-    #     outputs=delete_weapon_name,
-    # ).then(
-    #     load_calc_weapon_df,
-    #     inputs=[calc_weapon_rare_filter, calc_weapon_type_filter, calc_weapon_get_filter, calc_weapon_calc_filter],
-    #     outputs=calc_weapon_df,
-    # ).then(
-    #     lambda x, y: gr.update(choices=get_get_weapon_detail_list(x, y)),
-    #     inputs=[lvup_weapon_rare_filter, lvup_weapon_type_filter],
-    #     outputs=lvup_weapon,
-    # ).then(
-    #     change_lvup_weapon_value,
-    #     inputs=lvup_weapon,
-    #     outputs=weapon_lvup_button,
-    # ).then(
-    #     load_lvup_weapon_df,
-    #     inputs=lvup_weapon,
-    #     outputs=lvup_weapon_df,
-    # ).then(
-    #     load_player_item_df, inputs=player_item_filter, outputs=player_item_df
-    # ).then(
-    #     load_calc_item_df, inputs=need_item_need_filter, outputs=need_item_df
-    # ).then(
-    #     load_total_item_df, inputs=total_item_need_filter, outputs=total_item_df
-    # ).then(
-    #     download_chara_csv
-    # ).then(
-    #     download_weapon_csv
-    # ).then(
-    #     download_item_csv
-    # )

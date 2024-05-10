@@ -14,6 +14,8 @@ def get_chara_df() -> DataFrame:
     chara_list = read_chara()
     columns = [chara for chara in Chara.__table__.columns.keys() if chara not in ["created_at", "updated_at"]]
     value_list = np.array([chara.to_list() for chara in chara_list])
+    if len(value_list) == 0:
+        return DataFrame(columns=columns)
     chara_df = DataFrame(value_list, columns=columns)
     return chara_df
 
