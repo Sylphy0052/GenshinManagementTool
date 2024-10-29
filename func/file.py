@@ -22,12 +22,16 @@ def download_chara_csv() -> str:
 
 def download_weapon_csv() -> str:
     df = get_player_weapon_df()
+    if len(df) == 0:
+        return ""
     df.to_csv(os.path.join(FILE_DIR, "weapon.csv"), index=False)
     return os.path.join(FILE_DIR, "weapon.csv")
 
 
 def download_item_csv() -> str:
     df = get_item_df()
+    if len(df) == 0:
+        return ""
     df.to_csv(os.path.join(FILE_DIR, "item.csv"), index=False)
     return os.path.join(FILE_DIR, "item.csv")
 

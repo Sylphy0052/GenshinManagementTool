@@ -1,3 +1,4 @@
+import logging
 from typing import Any
 
 import gradio as gr
@@ -9,6 +10,7 @@ from func.weapon import get_player_weapon_df
 from settings import (
     ELEMENT_STONE,
     ITEM_RENAME_VALUES,
+    LOGGER_NAME,
     NEED_LV_ITEM,
     NEED_SKILL_ITEM,
     WEAPON3_LV_ITEM,
@@ -16,6 +18,7 @@ from settings import (
     WEAPON5_LV_ITEM,
 )
 
+logger = logging.getLogger(LOGGER_NAME)
 ITEM_COLUMNS = ["id", "アイテム名", "所持数", "必要数", "差分", "種類", "レア", "敵", "曜日"]
 
 
@@ -144,7 +147,10 @@ def load_lvup_skill3_df(chara_name: str) -> DataFrame:
     df_values = list()
     for item_type, (rare, num) in NEED_SKILL_ITEM[to_skill].items():
         if item_type == "special":
-            item = item_df["item_type" == item_type].iloc[0]
+            try:
+                item = item_df[item_df["item_type"] == item_type].iloc[0]
+            except Exception:
+                logger.error(f"item_type special error.\n{item_df}")
         else:
             item = chara[item_type]
         item_s = item_df[(item_df["base"] == item) & (item_df["rare"] == rare)].iloc[0]
@@ -265,7 +271,7 @@ def change_skill3_value(chara_name: str) -> Any:
 
 
 def change_lvup_weapon_value(weapon_name: str) -> Any:
-    if weapon_name == "":
+    if weapon_name == "" or weapon_name is None:
         return gr.update(value="強化", interactive=False)
     if isinstance(weapon_name, list):
         return gr.update(value="強化", interactive=False)
@@ -297,10 +303,11 @@ def change_lvup_weapon_value(weapon_name: str) -> Any:
 
 
 def load_lvup_weapon_df(weapon_name: str) -> DataFrame:
-    if weapon_name == "":
+    if weapon_name == "" or weapon_name is None:
         return DataFrame(columns=ITEM_COLUMNS)
     if isinstance(weapon_name, list):
         return DataFrame(columns=ITEM_COLUMNS)
+    logger.info(weapon_name)
     weapon_id = weapon_name.split(":")[0]
     weapon_df = get_player_weapon_df()
     weapon = weapon_df[weapon_df["id"] == weapon_id].iloc[0]

@@ -97,7 +97,11 @@ def _calc_lv_item(chara_df: DataFrame, weapon_df: DataFrame, item_df: DataFrame)
                         if item_df[item_df["base"] == item].shape[0] == 0:
                             print(weapon)
                             print(item)
-                        item_s = item_df[(item_df["base"] == item) & (item_df["rare"] == rare)].iloc[0]
+                        try:
+                            item_s = item_df[(item_df["base"] == item) & (item_df["rare"] == rare)].iloc[0]
+                        except Exception as e:
+                            logger.error(e)
+                            logger.error(f"{item=} {rare=}")
                         if item_s["id"] in lv_values:
                             lv_values[item_s["id"]][3] += num  # type: ignore
                         else:
@@ -204,7 +208,13 @@ def load_total_item_df(need_filter: bool = False) -> DataFrame:
     need_item_df = load_calc_item_df()
     total_item_df = _calc_total_item(item_df, need_item_df)
     if need_filter:
-        total_item_df = total_item_df[total_item_df["差分"] > 0]
+        total_item_df = total_item_df[
+            (total_item_df["差分"] > 0)
+            | (total_item_df["必要レア1"] > total_item_df["所持レア1"])
+            | (total_item_df["必要レア2"] > total_item_df["所持レア2"])
+            | (total_item_df["必要レア3"] > total_item_df["所持レア3"])
+            | (total_item_df["必要レア4"] > total_item_df["所持レア4"])
+        ]
     return total_item_df
 
 

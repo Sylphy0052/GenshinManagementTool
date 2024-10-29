@@ -1,3 +1,5 @@
+import logging
+
 from cruds.chara import (
     update_chara_lv,
     update_chara_skill1,
@@ -11,12 +13,15 @@ from func.item import get_item_df
 from func.weapon import get_player_weapon_df
 from settings import (
     ELEMENT_STONE,
+    LOGGER_NAME,
     NEED_LV_ITEM,
     NEED_SKILL_ITEM,
     WEAPON3_LV_ITEM,
     WEAPON4_LV_ITEM,
     WEAPON5_LV_ITEM,
 )
+
+logger = logging.getLogger(LOGGER_NAME)
 
 
 def lvup_lv(chara_name: str) -> None:

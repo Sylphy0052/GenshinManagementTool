@@ -1,4 +1,5 @@
 import logging
+import logging.handlers
 import os
 import webbrowser
 
@@ -76,8 +77,8 @@ logger.addHandler(rh)
 create_db()
 reset_db()
 
-app = gr.Blocks(title="原神素材計算機")
-with app:
+demo = gr.Blocks(title="原神素材計算機")
+with demo:
     gr.Markdown("# 原神素材計算機")
     with gr.Tab("キャラクター"):
         with gr.Tab("一覧"):
@@ -1216,25 +1217,25 @@ with app:
     )
 
     # 初回データ読み込み
-    app.load(load_chara_list_df, outputs=chara_list_df)
-    app.load(load_player_chara_df, outputs=player_chara_df)
-    app.load(load_calc_target_chara_df, outputs=calc_target_chara_df)
-    app.load(load_lvup_lv_df, inputs=chara_lvup_chara, outputs=lvup_chara_lv_df)
-    app.load(load_lvup_skill1_df, inputs=chara_lvup_chara, outputs=lvup_chara_skill1_df)
-    app.load(load_lvup_skill2_df, inputs=chara_lvup_chara, outputs=lvup_chara_skill2_df)
-    app.load(load_lvup_skill3_df, inputs=chara_lvup_chara, outputs=lvup_chara_skill3_df)
-    app.load(load_weapon_list_df, outputs=weapon_list_df)
-    app.load(load_player_weapon_df, outputs=player_weapon_df)
-    app.load(load_calc_weapon_df, outputs=calc_weapon_df)
-    app.load(load_item_list_df, outputs=item_list_df)
-    app.load(load_player_item_df, outputs=player_item_df)
-    app.load(load_calc_item_df, outputs=need_item_df)
-    app.load(load_total_item_df, outputs=total_item_df)
-    app.load(download_chara_csv)
-    app.load(download_item_csv)
+    demo.load(load_chara_list_df, outputs=chara_list_df)
+    demo.load(load_player_chara_df, outputs=player_chara_df)
+    demo.load(load_calc_target_chara_df, outputs=calc_target_chara_df)
+    demo.load(load_lvup_lv_df, inputs=chara_lvup_chara, outputs=lvup_chara_lv_df)
+    demo.load(load_lvup_skill1_df, inputs=chara_lvup_chara, outputs=lvup_chara_skill1_df)
+    demo.load(load_lvup_skill2_df, inputs=chara_lvup_chara, outputs=lvup_chara_skill2_df)
+    demo.load(load_lvup_skill3_df, inputs=chara_lvup_chara, outputs=lvup_chara_skill3_df)
+    demo.load(load_weapon_list_df, outputs=weapon_list_df)
+    demo.load(load_player_weapon_df, outputs=player_weapon_df)
+    demo.load(load_calc_weapon_df, outputs=calc_weapon_df)
+    demo.load(load_item_list_df, outputs=item_list_df)
+    demo.load(load_player_item_df, outputs=player_item_df)
+    demo.load(load_calc_item_df, outputs=need_item_df)
+    demo.load(load_total_item_df, outputs=total_item_df)
+    demo.load(download_chara_csv)
+    demo.load(download_item_csv)
 
 
 if __name__ == "__main__":
     webbrowser.open("http://localhost:8000?__theme=dark", new=2, autoraise=True)
-    app.queue()
-    app.launch(server_name="0.0.0.0", server_port=8000, debug=LOG_LEVEL == logging.DEBUG, allowed_paths=[FILE_DIR])
+    demo.queue()
+    demo.launch(server_name="0.0.0.0", server_port=8000, debug=LOG_LEVEL == logging.DEBUG, allowed_paths=[FILE_DIR])
